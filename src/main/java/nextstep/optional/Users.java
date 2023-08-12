@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Users {
+
     static final User DEFAULT_USER = new User("codesquad", 100);
 
     List<User> users = Arrays.asList(
