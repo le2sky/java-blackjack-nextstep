@@ -1,15 +1,14 @@
 package blackjack.card;
 
-enum CardSuit {
+public enum FaceShape {
 
-    SPADE("스페이드"),
-    HEART("하트"),
-    DIAMOND("다이아몬드"),
-    CLOVER("클로버");
+    KING("K"),
+    JACK("J"),
+    QUEEN("Q");
 
     private final String value;
 
-    CardSuit(final String value) {
+    FaceShape(final String value) {
         this.value = value;
     }
 
