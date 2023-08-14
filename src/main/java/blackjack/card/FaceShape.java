@@ -1,6 +1,6 @@
 package blackjack.card;
 
-public enum FaceShape {
+enum FaceShape {
 
     KING("K"),
     JACK("J"),
