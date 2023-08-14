@@ -26,8 +26,8 @@ class FaceRank implements CardRank {
     }
 
     @Override
-    public int calculatePoint() {
-        return FACE_CARD_POINT_AMOUNT;
+    public Point calculatePoint() {
+        return Point.from(FACE_CARD_POINT_AMOUNT);
     }
 
     @Override

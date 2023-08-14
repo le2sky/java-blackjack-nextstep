@@ -29,8 +29,8 @@ class NumericRank implements CardRank {
     }
 
     @Override
-    public int calculatePoint() {
-        return value;
+    public Point calculatePoint() {
+        return Point.from(value);
     }
 
     @Override

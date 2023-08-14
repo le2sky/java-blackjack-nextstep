@@ -2,7 +2,7 @@ package blackjack.card;
 
 interface CardRank {
 
-    int calculatePoint();
+    Point calculatePoint();
 
     String getValue();
 }

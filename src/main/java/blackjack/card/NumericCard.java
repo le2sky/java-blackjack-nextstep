@@ -11,7 +11,7 @@ class NumericCard extends AbstractCard {
     }
 
     @Override
-    public int calculatePoint() {
+    public Point calculatePoint() {
         return rank.calculatePoint();
     }
 

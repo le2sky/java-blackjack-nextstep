@@ -19,6 +19,14 @@ class NumericCardTest {
         assertThat(card).isEqualTo(other);
     }
 
+    @DisplayName("카드의 랭크가 알 수 없는 값(null)인 경우는 허용되지 않는다")
+    @Test
+    void checkFaceRank() {
+        assertThatThrownBy(() -> NumericCard.of(null, CardSuit.CLOVER))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("유효한 랭크를 입력해주세요.");
+    }
+
     @DisplayName("카드의 무늬(suit)가 알 수 없는 값(null)인 경우는 허용되지 않는다")
     @Test
     void checkSuit() {
@@ -45,9 +53,9 @@ class NumericCardTest {
     void calculatePoint(int source) {
         Card card = NumericCard.of(NumericRank.from(source), CardSuit.DIAMOND);
 
-        int result = card.calculatePoint();
+        Point result = card.calculatePoint();
 
-        assertThat(result).isEqualTo(source);
+        assertThat(result.get()).isEqualTo(source);
     }
 
     @DisplayName("숫자 카드의 이름은 숫자와 무늬의 조합이다.")

@@ -2,7 +2,7 @@ package blackjack.card;
 
 interface Card {
 
-    int calculatePoint();
+    Point calculatePoint();
 
     String getFullName();
 }

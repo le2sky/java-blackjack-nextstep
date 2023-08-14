@@ -17,7 +17,7 @@ class FaceCardTest {
         assertThat(card).isEqualTo(other);
     }
 
-    @DisplayName("카드의 얼굴 모양(shape)가 알 수 없는 값(null)인 경우는 허용되지 않는다")
+    @DisplayName("카드의 랭크가 알 수 없는 값(null)인 경우는 허용되지 않는다")
     @Test
     void checkFaceRank() {
         assertThatThrownBy(() -> FaceCard.of(null, CardSuit.CLOVER))
@@ -46,9 +46,9 @@ class FaceCardTest {
     void calculatePoint() {
         Card card = FaceCard.of(FaceRank.from(FaceShape.QUEEN), CardSuit.SPADE);
 
-        int result = card.calculatePoint();
+        Point result = card.calculatePoint();
 
-        assertThat(result).isEqualTo(10);
+        assertThat(result.get()).isEqualTo(10);
     }
 
     @DisplayName("얼굴 카드의 이름은 얼굴 모양과 무늬의 조합이다.")
