@@ -2,14 +2,18 @@ package blackjack.card;
 
 class AceRank implements CardRank {
 
+    private static final int DEFAULT_ACE_CARD_POINT_AMOUNT = 1;
+    private static final int ALTER_ACE_CARD_POINT_AMOUNT = 10;
+    public static final String ACE_CARD_VALUE = "A";
+
     @Override
     public Point calculatePoint() {
-        return Point.from(0);
+        return Point.of(DEFAULT_ACE_CARD_POINT_AMOUNT, ALTER_ACE_CARD_POINT_AMOUNT);
     }
 
     @Override
     public String getValue() {
-        return null;
+        return ACE_CARD_VALUE;
     }
 
     @Override

@@ -2,7 +2,7 @@ package blackjack.card;
 
 class AceCard extends AbstractCard {
 
-    private AceCard(final CardRank rank, final CardSuit suit) {
+    private AceCard(final AceRank rank, final CardSuit suit) {
         super(rank, suit);
     }
 
@@ -12,11 +12,11 @@ class AceCard extends AbstractCard {
 
     @Override
     public Point calculatePoint() {
-        return Point.from(0);
+        return rank.calculatePoint();
     }
 
     @Override
     public String getFullName() {
-        return null;
+        return rank.getValue() + suit.getValue();
     }
 }
