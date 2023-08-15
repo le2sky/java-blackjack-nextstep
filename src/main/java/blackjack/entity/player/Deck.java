@@ -45,7 +45,7 @@ class Deck {
     public Point calculateTotalPoint() {
         return filteringToExchangeableValue()
                 .findFirst()
-                .map(this::calculatePointWithAceCard)
+                .map(this::calculatePointWithExchangeableCard)
                 .orElseGet(() -> Point.from(calculateDefaultPoint()));
     }
 
@@ -55,7 +55,7 @@ class Deck {
                 .filter(Point::hasExchangeableValue);
     }
 
-    private Point calculatePointWithAceCard(final Point exchangeablePoint) {
+    private Point calculatePointWithExchangeableCard(final Point exchangeablePoint) {
         int defaultPoint = calculateDefaultPoint();
         int exchangeableCardCount = findExchangeableCardCount();
         int totalExchangeableCardDefault = exchangeablePoint.get() * exchangeableCardCount;
@@ -66,7 +66,7 @@ class Deck {
         );
     }
 
-    private Integer calculateDefaultPoint() {
+    private int calculateDefaultPoint() {
         return cards.stream()
                 .map(Card::calculatePoint)
                 .map(Point::get)
