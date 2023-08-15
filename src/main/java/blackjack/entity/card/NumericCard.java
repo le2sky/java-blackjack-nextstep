@@ -1,10 +1,8 @@
-package blackjack.entity.card.numeric;
+package blackjack.entity.card;
 
-import blackjack.entity.card.CardRank;
 import blackjack.entity.common.Point;
-import java.util.Objects;
 
-class NumericRank implements CardRank {
+class NumericCard extends AbstractCard {
 
     private static final int MIN_CARD_RANK_RANGE = 2;
     private static final int MAX_CARD_RANK_RANGE = 10;
@@ -14,14 +12,15 @@ class NumericRank implements CardRank {
 
     private final int value;
 
-    private NumericRank(final int value) {
+    private NumericCard(final int value, final CardSuit suit) {
+        super(suit);
         this.value = value;
     }
 
-    public static NumericRank from(final int value) {
+    public static Card of(final int value, final CardSuit suit) {
         checkIsNumericRankInRange(value);
 
-        return new NumericRank(value);
+        return new NumericCard(value, suit);
     }
 
     private static void checkIsNumericRankInRange(final int value) {
@@ -36,24 +35,7 @@ class NumericRank implements CardRank {
     }
 
     @Override
-    public String getValue() {
-        return String.valueOf(value);
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        NumericRank that = (NumericRank) o;
-        return value == that.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
+    public String getFullName() {
+        return value + suit.getValue();
     }
 }

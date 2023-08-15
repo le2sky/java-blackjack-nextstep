@@ -1,6 +1,6 @@
 package blackjack.entity.card;
 
-public enum CardSuit {
+enum CardSuit {
 
     SPADE("스페이드"),
     HEART("하트"),

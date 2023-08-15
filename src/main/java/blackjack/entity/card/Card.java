@@ -2,7 +2,7 @@ package blackjack.entity.card;
 
 import blackjack.entity.common.Point;
 
-public interface Card {
+interface Card {
 
     Point calculatePoint();
 
