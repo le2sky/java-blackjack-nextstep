@@ -7,7 +7,7 @@ class AceRank implements CardRank {
 
     private static final int DEFAULT_ACE_CARD_POINT_AMOUNT = 1;
     private static final int ALTER_ACE_CARD_POINT_AMOUNT = 10;
-    public static final String ACE_CARD_VALUE = "A";
+    private static final String ACE_CARD_VALUE = "A";
 
     @Override
     public Point calculatePoint() {
