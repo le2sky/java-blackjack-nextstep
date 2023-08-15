@@ -8,7 +8,7 @@ abstract class AbstractCard implements Card {
 
     private static final String INVALID_CARD_SUIT_MESSAGE = "유효한 카드의 무늬를 입력해주세요.";
 
-    protected final CardSuit suit;
+    private final CardSuit suit;
 
     protected AbstractCard(final CardSuit suit) {
         checkIsSuitNonNull(suit);
@@ -20,6 +20,13 @@ abstract class AbstractCard implements Card {
         Optional.ofNullable(suit)
                 .orElseThrow(() -> new IllegalArgumentException(INVALID_CARD_SUIT_MESSAGE));
     }
+
+    @Override
+    public String getFullName() {
+        return getCardValue() + suit.getValue();
+    }
+
+    abstract public String getCardValue();
 
     @Override
     public boolean equals(final Object o) {

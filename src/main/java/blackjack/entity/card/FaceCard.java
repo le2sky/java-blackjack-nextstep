@@ -32,7 +32,7 @@ class FaceCard extends AbstractCard {
     }
 
     @Override
-    public String getFullName() {
-        return shape.getValue() + suit.getValue();
+    public String getCardValue() {
+        return shape.getValue();
     }
 }

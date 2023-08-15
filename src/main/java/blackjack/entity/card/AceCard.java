@@ -22,7 +22,7 @@ class AceCard extends AbstractCard {
     }
 
     @Override
-    public String getFullName() {
-        return ACE_CARD_VALUE + suit.getValue();
+    public String getCardValue() {
+        return ACE_CARD_VALUE;
     }
 }

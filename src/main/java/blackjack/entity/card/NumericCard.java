@@ -35,7 +35,7 @@ class NumericCard extends AbstractCard {
     }
 
     @Override
-    public String getFullName() {
-        return value + suit.getValue();
+    public String getCardValue() {
+        return String.valueOf(value);
     }
 }
