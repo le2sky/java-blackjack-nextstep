@@ -1,4 +1,7 @@
-package blackjack.card;
+package blackjack.entity.card.ace;
+
+import blackjack.entity.card.CardRank;
+import blackjack.entity.common.Point;
 
 class AceRank implements CardRank {
 

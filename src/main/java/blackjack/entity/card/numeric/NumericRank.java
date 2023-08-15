@@ -1,5 +1,7 @@
-package blackjack.card;
+package blackjack.entity.card.numeric;
 
+import blackjack.entity.card.CardRank;
+import blackjack.entity.common.Point;
 import java.util.Objects;
 
 class NumericRank implements CardRank {

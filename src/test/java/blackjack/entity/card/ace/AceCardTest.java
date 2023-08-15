@@ -1,8 +1,11 @@
-package blackjack.card;
+package blackjack.entity.card.ace;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import blackjack.entity.card.Card;
+import blackjack.entity.card.CardSuit;
+import blackjack.entity.common.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

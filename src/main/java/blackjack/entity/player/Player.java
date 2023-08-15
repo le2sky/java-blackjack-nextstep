@@ -1,5 +1,6 @@
-package blackjack;
+package blackjack.entity.player;
 
+import blackjack.entity.common.Money;
 import java.util.Objects;
 
 class Player {

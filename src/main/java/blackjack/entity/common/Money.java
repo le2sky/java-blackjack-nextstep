@@ -1,9 +1,9 @@
-package blackjack;
+package blackjack.entity.common;
 
 import java.util.Objects;
 import java.util.Optional;
 
-class Money {
+public class Money {
 
     private static final String INVALID_OTHER_MONEY_MESSAGE =
             "알 수 없는 금액과 해당 연산을 수행할 수 없습니다.";

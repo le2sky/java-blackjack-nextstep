@@ -1,4 +1,4 @@
-package blackjack.card;
+package blackjack.entity.card.face;
 
 enum FaceShape {
 

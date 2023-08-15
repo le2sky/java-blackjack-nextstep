@@ -1,8 +1,8 @@
-package blackjack.card;
+package blackjack.entity.common;
 
 import java.util.Optional;
 
-class Point implements Exchangeable<Integer> {
+public class Point implements Exchangeable<Integer> {
 
     private final int value;
     private final Integer exchangeableValue;

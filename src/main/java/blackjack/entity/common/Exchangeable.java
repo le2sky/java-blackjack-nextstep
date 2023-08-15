@@ -1,4 +1,4 @@
-package blackjack.card;
+package blackjack.entity.common;
 
 import java.util.Optional;
 

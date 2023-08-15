@@ -1,10 +1,10 @@
-package blackjack.card;
+package blackjack.entity.card;
 
 
 import java.util.Objects;
 import java.util.Optional;
 
-abstract class AbstractCard implements Card {
+public abstract class AbstractCard implements Card {
 
     private static final String INVALID_CARD_SUIT_MESSAGE = "유효한 카드의 무늬를 입력해주세요.";
     private static final String INVALID_RANK_MESSAGE = "유효한 랭크를 입력해주세요.";

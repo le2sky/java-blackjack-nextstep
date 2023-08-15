@@ -1,4 +1,9 @@
-package blackjack.card;
+package blackjack.entity.card.ace;
+
+import blackjack.entity.card.AbstractCard;
+import blackjack.entity.card.Card;
+import blackjack.entity.card.CardSuit;
+import blackjack.entity.common.Point;
 
 class AceCard extends AbstractCard {
 
