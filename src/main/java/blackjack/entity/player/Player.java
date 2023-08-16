@@ -1,6 +1,7 @@
 package blackjack.entity.player;
 
 import blackjack.entity.common.Money;
+import java.util.Collections;
 import java.util.Objects;
 
 class Player {
@@ -11,10 +12,12 @@ class Player {
 
     private final Name name;
     private final Money money;
+    private final Deck deck;
 
     private Player(final String name, final double money) {
         this.money = Money.from(money);
         this.name = Name.from(name);
+        this.deck = Deck.from(Collections.emptyList());
     }
 
     public static Player of(final String name, final double money) {
@@ -30,7 +33,7 @@ class Player {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -39,11 +42,11 @@ class Player {
         }
         Player player = (Player) o;
         return Objects.equals(name, player.name) && Objects.equals(money,
-                player.money);
+                player.money) && Objects.equals(deck, player.deck);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, money);
+        return Objects.hash(name, money, deck);
     }
 }
