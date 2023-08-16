@@ -70,10 +70,9 @@ class DeckTest {
         deck.deal(generateCard(6, "6클로버"));
         deck.deal(generateCard(9, "9하트"));
 
-        Point result = deck.calculateTotalPoint();
+        int result = deck.calculateTotalPoint();
 
-        assertThat(result.get()).isEqualTo(18);
-        assertThat(result.hasExchangeableValue()).isFalse();
+        assertThat(result).isEqualTo(18);
     }
 
     @DisplayName("아무 카드도 존재하지 않는다면 0점이다.")
@@ -81,13 +80,12 @@ class DeckTest {
     void calculateTotalPointWithAnyCard() {
         Deck deck = Deck.from(Collections.emptyList());
 
-        Point result = deck.calculateTotalPoint();
+        int result = deck.calculateTotalPoint();
 
-        assertThat(result.get()).isEqualTo(0);
-        assertThat(result.hasExchangeableValue()).isFalse();
+        assertThat(result).isEqualTo(0);
     }
 
-    @DisplayName("에이스 카드가 포함되어 있으면 대안 점수가 존재한다.")
+    @DisplayName("에이스 카드가 포함되어 있는 경우 계산 테스")
     @Test
     void calculateTotalPointWithAce() {
         Deck deck = Deck.from(Collections.emptyList());
@@ -96,32 +94,23 @@ class DeckTest {
         deck.deal(generateCard(6, "6클로버"));
         deck.deal(generateCard(9, "9하트"));
 
-        Point result = deck.calculateTotalPoint();
+        int result = deck.calculateTotalPoint();
 
-        assertThat(result.get()).isEqualTo(19);
-        assertThat(result.hasExchangeableValue()).isTrue();
-        assertThat(result.exchange().get()).isEqualTo(28);
+        assertThat(result).isEqualTo(19);
     }
 
 
-    @DisplayName("더욱 복잡한 에이스 포함 점수 계산 테스트")
+    @DisplayName("에이스 대체 점수 사용 테스트")
     @Test
     void calculateTotalPointComplex() {
         Deck deck = Deck.from(Collections.emptyList());
         deck.deal(generateAceCard());
-        deck.deal(generateCard(3, "3스페이드"));
-        deck.deal(generateCard(6, "6클로버"));
-        deck.deal(generateCard(9, "9하트"));
         deck.deal(generateAceCard());
-        deck.deal(generateCard(3, "3스페이드"));
-        deck.deal(generateCard(6, "6클로버"));
-        deck.deal(generateCard(9, "9하트"));
+        deck.deal(generateAceCard());
 
-        Point result = deck.calculateTotalPoint();
+        int result = deck.calculateTotalPoint();
 
-        assertThat(result.get()).isEqualTo(38);
-        assertThat(result.hasExchangeableValue()).isTrue();
-        assertThat(result.exchange().get()).isEqualTo(56);
+        assertThat(result).isEqualTo(21);
     }
 
     private Card generateAceCard() {

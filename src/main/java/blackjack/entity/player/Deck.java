@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class Deck {
 
     private static final String INVALID_CARD_MESSAGE = "유효한 카드를 덱에 추가해주세요.";
     private static final String INVALID_CARDS_MESSAGE = "유효하지 않는 목록으로 덱을 초기화할 수 없습니다.";
+    private static final int BLACK_JACK_AMOUNT = 21;
 
     private final List<Card> cards;
 
@@ -42,44 +44,60 @@ class Deck {
         cards.add(card);
     }
 
-    public Point calculateTotalPoint() {
-        return filteringToExchangeableValue()
-                .findFirst()
-                .map(this::calculatePointWithExchangeableCard)
-                .orElseGet(() -> Point.from(calculateDefaultPoint()));
+    public int calculateTotalPoint() {
+        int total = calculatePointWithoutExchangeable();
+
+        List<Point> exchangeablePoints = findExchangeablePoints();
+
+        for (Point exchangeablePoint : exchangeablePoints) {
+            total = nextTotal(total, exchangeablePoint);
+        }
+
+        return total;
     }
 
-    private Stream<Point> filteringToExchangeableValue() {
-        return cards.stream()
-                .map(Card::calculatePoint)
-                .filter(Point::hasExchangeableValue);
-    }
-
-    private Point calculatePointWithExchangeableCard(final Point exchangeablePoint) {
-        int defaultPoint = calculateDefaultPoint();
-        int exchangeableCardCount = findExchangeableCardCount();
-        int totalExchangeableCardDefault = exchangeablePoint.get() * exchangeableCardCount;
-        int exchangeValue = (exchangeablePoint.exchange().orElse(0)) * exchangeableCardCount;
-
-        return Point.of(
-                defaultPoint, defaultPoint - totalExchangeableCardDefault + exchangeValue
-        );
-    }
-
-    private int calculateDefaultPoint() {
-        return cards.stream()
-                .map(Card::calculatePoint)
-                .map(Point::get)
+    private int calculatePointWithoutExchangeable() {
+        return mapToPointStream()
+                .filter(point -> !point.hasExchangeableValue())
+                .mapToInt(Point::get)
                 .reduce(Integer::sum)
                 .orElse(0);
     }
 
-    private int findExchangeableCardCount() {
-        return (int) filteringToExchangeableValue().count();
+    private List<Point> findExchangeablePoints() {
+        return mapToPointStream()
+                .filter(Point::hasExchangeableValue)
+                .collect(Collectors.toList());
+    }
+
+    private Stream<Point> mapToPointStream() {
+        return cards.stream()
+                .map(Card::calculatePoint);
+    }
+
+    private int nextTotal(final int total, final Point exchangeablePoint) {
+        int defaultValue = exchangeablePoint.get();
+        int exchangeValue = exchangeablePoint
+                .exchange()
+                .orElse(defaultValue);
+
+        return selectNextTotal(total + exchangeValue, total + defaultValue);
+    }
+
+    private int selectNextTotal(final int total, final int other) {
+        if (!isBust(total)) {
+            return total;
+        }
+
+        return other;
+    }
+
+    private boolean isBust(final int amount) {
+        return amount > BLACK_JACK_AMOUNT;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
