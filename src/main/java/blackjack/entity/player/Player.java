@@ -4,7 +4,7 @@ import blackjack.entity.common.Money;
 import java.util.Collections;
 import java.util.Objects;
 
-class Player {
+public class Player {
 
     private static final int MIN_BET_MONEY_AMOUNT = 0;
     private static final String INVALID_MONEY_AMOUNT_MESSAGE =
