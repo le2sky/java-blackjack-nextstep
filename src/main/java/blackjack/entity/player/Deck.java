@@ -47,9 +47,7 @@ class Deck {
     public int calculateTotalPoint() {
         int total = calculatePointWithoutExchangeable();
 
-        List<Point> exchangeablePoints = findExchangeablePoints();
-
-        for (Point exchangeablePoint : exchangeablePoints) {
+        for (Point exchangeablePoint : findExchangeablePoints()) {
             total = nextTotal(total, exchangeablePoint);
         }
 
