@@ -11,11 +11,11 @@ class Player {
             "초기 베팅 금액은 적어도 " + MIN_BET_MONEY_AMOUNT + "보다 커야 합니다.";
 
     private final Name name;
-    private final Money money;
     private final Deck deck;
+    private final PlayerState state;
 
     private Player(final String name, final double money) {
-        this.money = Money.from(money);
+        this.state = PlayerState.from(Money.from(money));
         this.name = Name.from(name);
         this.deck = Deck.from(Collections.emptyList());
     }
@@ -41,12 +41,12 @@ class Player {
             return false;
         }
         Player player = (Player) o;
-        return Objects.equals(name, player.name) && Objects.equals(money,
-                player.money) && Objects.equals(deck, player.deck);
+        return Objects.equals(name, player.name) && Objects.equals(state,
+                player.state) && Objects.equals(deck, player.deck);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, money, deck);
+        return Objects.hash(name, state, deck);
     }
 }
