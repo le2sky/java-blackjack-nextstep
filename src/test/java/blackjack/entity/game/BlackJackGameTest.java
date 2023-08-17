@@ -3,6 +3,7 @@ package blackjack.entity.game;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import blackjack.entity.card.Card;
+import blackjack.entity.card.CardFactory;
 import blackjack.entity.common.Point;
 import blackjack.entity.player.Player;
 import java.util.Collections;
