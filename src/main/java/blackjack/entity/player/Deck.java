@@ -94,6 +94,10 @@ class Deck {
         return amount > BLACK_JACK_AMOUNT;
     }
 
+    public boolean isBust() {
+        return calculateTotalPoint() > BLACK_JACK_AMOUNT;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

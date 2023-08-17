@@ -1,5 +1,6 @@
 package blackjack.entity.player;
 
+import blackjack.entity.card.Card;
 import blackjack.entity.common.Money;
 import java.util.Collections;
 import java.util.Objects;
@@ -9,6 +10,8 @@ public class Player {
     private static final int MIN_BET_MONEY_AMOUNT = 0;
     private static final String INVALID_MONEY_AMOUNT_MESSAGE =
             "초기 베팅 금액은 적어도 " + MIN_BET_MONEY_AMOUNT + "보다 커야 합니다.";
+    private static final String INVALID_DEAL_STATE_MESSAGE =
+            "스탠드나 버스트 상태에서는 신규 카드를 받을 수 없습니다.";
 
     private final Name name;
     private final Deck deck;
@@ -30,6 +33,34 @@ public class Player {
         if (money <= MIN_BET_MONEY_AMOUNT) {
             throw new IllegalArgumentException(INVALID_MONEY_AMOUNT_MESSAGE);
         }
+    }
+
+    public void stand() {
+        state.stand();
+    }
+
+    public void deal(final Card card) {
+        checkIsNotPlayable();
+
+        deck.deal(card);
+
+        if (deck.isBust()) {
+            state.bust();
+        }
+    }
+
+    private void checkIsNotPlayable() {
+        if (!isPlayable()) {
+            throw new IllegalStateException(INVALID_DEAL_STATE_MESSAGE);
+        }
+    }
+
+    public boolean isPlayable() {
+        return state.isPlay();
+    }
+
+    public int calculateTotalPoint() {
+        return deck.calculateTotalPoint();
     }
 
     @Override

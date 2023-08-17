@@ -11,4 +11,8 @@ enum PlayerStatus {
     public boolean isStand() {
         return this == STAND;
     }
+
+    public boolean isPlay() {
+        return this == PLAY;
+    }
 }

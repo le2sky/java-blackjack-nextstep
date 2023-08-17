@@ -59,6 +59,10 @@ class PlayerState {
         return status.isStand();
     }
 
+    public boolean isPlay() {
+        return status.isPlay();
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
