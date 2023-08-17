@@ -1,5 +1,6 @@
 package blackjack.controller;
 
+import blackjack.entity.card.RandomCardFactory;
 import blackjack.entity.game.BlackJackGame;
 import blackjack.view.InputView;
 import java.util.Arrays;
@@ -13,7 +14,8 @@ public class BlackJackGameController {
 
         setPlayerMoney(blackJackGamePlayers);
 
-        play(BlackJackGame.from(PlayerMapper.mapToPlayers(blackJackGamePlayers)));
+        play(BlackJackGame.of(PlayerMapper.mapToPlayers(blackJackGamePlayers),
+                new RandomCardFactory()));
     }
 
     private List<BlackJackGamePlayer> createPlayers(final String[] names) {
