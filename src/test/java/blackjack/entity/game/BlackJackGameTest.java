@@ -1,13 +1,16 @@
 package blackjack.entity.game;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import blackjack.entity.card.Card;
 import blackjack.entity.card.CardFactory;
 import blackjack.entity.common.Point;
 import blackjack.entity.player.Player;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,6 +53,38 @@ class BlackJackGameTest {
                 ))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("유효한 카드 생성기를 입력해주세요.");
+    }
+
+    @DisplayName("게임의 사용자를 반환한다.")
+    @Test
+    void getAllPlayer() {
+        BlackJackGame game = BlackJackGame.of(Arrays.asList(
+                Player.of("pobi", 1000),
+                Player.of("lee", 1000)
+        ), new CardFactoryStub());
+
+        List<Player> result = game.getAllPlayer();
+
+        assertThat(result)
+                .hasSize(2)
+                .extracting("name")
+                .containsExactlyInAnyOrder("pobi", "lee");
+    }
+
+    @DisplayName("모든 플레이어에게 카드를 한장씩 나눠준다.")
+    @Test
+    void dealAllPlayers() {
+        CardFactoryStub cardFactory = new CardFactoryStub();
+        cardFactory.givenCard(createCard(4, "4스페이드"));
+        cardFactory.givenCard(createCard(5, "5하트"));
+        Player pobi = Player.of("pobi", 1000);
+        Player lee = Player.of("lee", 1000);
+        BlackJackGame game = BlackJackGame.of(Arrays.asList(pobi, lee), cardFactory);
+
+        game.dealAllPlayer();
+
+        assertThat(pobi.calculateTotalPoint()).isEqualTo(4);
+        assertThat(lee.calculateTotalPoint()).isEqualTo(5);
     }
 
     private Card createCard(final int point, final String fullName) {

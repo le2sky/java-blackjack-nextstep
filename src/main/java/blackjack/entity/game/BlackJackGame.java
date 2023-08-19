@@ -14,11 +14,11 @@ public class BlackJackGame {
             "플레이어는 적어도 " + MIN_PLAYERS_SIZE + " 명 이상이어야 합니다.";
     private static final String INVALID_CARD_FACTORY_MESSAGE = "유효한 카드 생성기를 입력해주세요.";
 
-    private final List<Player> player;
+    private final List<Player> players;
     private final CardFactory cardFactory;
 
     private BlackJackGame(final List<Player> players, CardFactory cardFactory) {
-        this.player = players;
+        this.players = players;
         this.cardFactory = cardFactory;
     }
 
@@ -50,5 +50,13 @@ public class BlackJackGame {
         if (players.size() < MIN_PLAYERS_SIZE) {
             throw new IllegalArgumentException(INVALID_PLAYERS_SIZE);
         }
+    }
+
+    public List<Player> getAllPlayer() {
+        return players;
+    }
+
+    public void dealAllPlayer() {
+        players.forEach(player -> player.deal(cardFactory.createOne()));
     }
 }
