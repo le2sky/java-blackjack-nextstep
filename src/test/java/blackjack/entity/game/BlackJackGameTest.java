@@ -75,6 +75,7 @@ class BlackJackGameTest {
     @Test
     void dealAllPlayers() {
         CardFactoryStub cardFactory = new CardFactoryStub();
+        cardFactory.givenCard(createCard(1, "1스페이스"));
         cardFactory.givenCard(createCard(4, "4스페이드"));
         cardFactory.givenCard(createCard(5, "5하트"));
         Player pobi = Player.of("pobi", 1000);

@@ -81,6 +81,18 @@ class PlayerTest {
                 .hasMessage("스탠드나 버스트 상태에서는 신규 카드를 받을 수 없습니다.");
     }
 
+    @DisplayName("사용자의 카드 목록을 문자열로 반환한다.")
+    @Test
+    void showCard() {
+        Player player = Player.of("lee", 100);
+        player.deal(createCard());
+        player.deal(createCard());
+
+        String result = player.showCard();
+
+        assertThat(result).isEqualTo("5스페이드, 5스페이드");
+    }
+
     private Card createCard() {
         return new Card() {
             @Override

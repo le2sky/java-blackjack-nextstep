@@ -13,13 +13,16 @@ public class BlackJackGame {
     private static final String INVALID_PLAYERS_SIZE =
             "플레이어는 적어도 " + MIN_PLAYERS_SIZE + " 명 이상이어야 합니다.";
     private static final String INVALID_CARD_FACTORY_MESSAGE = "유효한 카드 생성기를 입력해주세요.";
+    private static final String DEALER_NAME = "딜러";
 
     private final List<Player> players;
     private final CardFactory cardFactory;
+    private final Player dealer;
 
-    private BlackJackGame(final List<Player> players, CardFactory cardFactory) {
-        this.players = players;
+    private BlackJackGame(final List<Player> players, final CardFactory cardFactory) {
         this.cardFactory = cardFactory;
+        this.players = players;
+        this.dealer = Player.of(DEALER_NAME, 0);
     }
 
     public static BlackJackGame of(final List<Player> players, final CardFactory cardFactory) {
@@ -52,11 +55,16 @@ public class BlackJackGame {
         }
     }
 
-    public List<Player> getAllPlayer() {
-        return players;
+    public void dealAllPlayer() {
+        dealer.deal(cardFactory.createOne());
+        players.forEach(player -> player.deal(cardFactory.createOne()));
     }
 
-    public void dealAllPlayer() {
-        players.forEach(player -> player.deal(cardFactory.createOne()));
+    public Player getDealer() {
+        return dealer;
+    }
+
+    public List<Player> getAllPlayer() {
+        return players;
     }
 }

@@ -98,6 +98,10 @@ class Deck {
         return calculateTotalPoint() > BLACK_JACK_AMOUNT;
     }
 
+    public List<Card> getCard() {
+        return cards;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
