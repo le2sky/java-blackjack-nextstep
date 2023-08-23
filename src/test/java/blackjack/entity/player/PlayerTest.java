@@ -19,12 +19,12 @@ class PlayerTest {
         assertThat(player).isEqualTo(other);
     }
 
-    @DisplayName("플레이어의 초기 베팅 금액은 0보다 커야한다.")
+    @DisplayName("플레이어의 초기 베팅 금액은 0원 이상이어야 한다.")
     @Test
     void checkBetAmount() {
-        assertThatThrownBy(() -> Player.of("name", 0))
+        assertThatThrownBy(() -> Player.of("name", -1))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("초기 베팅 금액은 적어도 0보다 커야 합니다.");
+                .hasMessage("초기 베팅 금액은 적어도 0 이상이어야 합니다.");
     }
 
     @DisplayName("플레이어는 카드를 받아서 덱에 넣을 수 있다.")
