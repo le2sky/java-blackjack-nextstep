@@ -71,6 +71,10 @@ public class Player {
                 .collect(Collectors.joining(SHOW_CARD_JOIN_DELIMITER));
     }
 
+    public boolean hasBlackJack() {
+        return deck.isBlackJack();
+    }
+
     public String getName() {
         return name.getValue();
     }

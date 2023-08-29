@@ -60,6 +60,13 @@ public class BlackJackGame {
         players.forEach(player -> player.deal(cardFactory.createOne()));
     }
 
+    public boolean hasBlackJack() {
+        return dealer.hasBlackJack() || players.stream()
+                .map(Player::hasBlackJack)
+                .findFirst()
+                .orElse(false);
+    }
+
     public Player getDealer() {
         return dealer;
     }

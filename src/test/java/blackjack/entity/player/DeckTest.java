@@ -113,6 +113,19 @@ class DeckTest {
         assertThat(result).isEqualTo(21);
     }
 
+    @DisplayName("블랙잭 검증 테스트")
+    @Test
+    void isBlackJack() {
+        Deck deck = Deck.from(Collections.emptyList());
+        deck.deal(generateCard(10, ""));
+        deck.deal(generateCard(10, ""));
+        deck.deal(generateCard(1, ""));
+
+        boolean result = deck.isBlackJack();
+
+        assertThat(result).isTrue();
+    }
+
     private Card generateAceCard() {
         return new Card() {
 
