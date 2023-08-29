@@ -88,27 +88,6 @@ class BlackJackGameTest {
         assertThat(lee.calculateTotalPoint()).isEqualTo(5);
     }
 
-    @DisplayName("블랙잭을 소유한 플레이어가 있는지 확인한다.")
-    @Test
-    void hasBlackJack() {
-        CardFactoryStub cardFactory = new CardFactoryStub();
-        cardFactory.givenCard(createCard(1, "1스페이스"));
-        cardFactory.givenCard(createCard(10, "10스페이드"));
-        cardFactory.givenCard(createCard(10, "10하트"));
-        cardFactory.givenCard(createCard(1, "1하트"));
-        cardFactory.givenCard(createCard(1, "1스페이스"));
-        cardFactory.givenCard(createCard(10, "10스페이드"));
-        Player pobi = Player.of("pobi", 1000);
-        BlackJackGame game = BlackJackGame.of(Arrays.asList(pobi), cardFactory);
-        game.dealAllPlayer();
-        game.dealAllPlayer();
-        game.dealAllPlayer();
-
-        boolean result = game.hasBlackJack();
-
-        assertThat(result).isTrue();
-    }
-
     @DisplayName("블랙잭을 소유한 플레이어 목록을 조회한다.")
     @Test
     void getBlackJackPlayer() {
@@ -131,6 +110,27 @@ class BlackJackGameTest {
         assertThat(result)
                 .extracting("name")
                 .containsExactly("pobi");
+    }
+
+    @DisplayName("플레이어가 딜러에게 승리했는지 확인한다.")
+    @Test
+    void isPlayerWin() {
+        CardFactoryStub cardFactory = new CardFactoryStub();
+        cardFactory.givenCard(createCard(1, "1스페이스"));
+        cardFactory.givenCard(createCard(10, "10스페이드"));
+        cardFactory.givenCard(createCard(1, "1하트"));
+        cardFactory.givenCard(createCard(10, "10하트"));
+        cardFactory.givenCard(createCard(1, "1스페이스"));
+        cardFactory.givenCard(createCard(1, "1스페이스"));
+        Player pobi = Player.of("pobi", 1000);
+        BlackJackGame game = BlackJackGame.of(Arrays.asList(pobi), cardFactory);
+        game.dealAllPlayer();
+        game.dealAllPlayer();
+        game.dealAllPlayer();
+
+        boolean result = game.isPlayerWin();
+
+        assertThat(result).isTrue();
     }
 
     private Card createCard(final int point, final String fullName) {
