@@ -109,6 +109,30 @@ class BlackJackGameTest {
         assertThat(result).isTrue();
     }
 
+    @DisplayName("블랙잭을 소유한 플레이어 목록을 조회한다.")
+    @Test
+    void getBlackJackPlayer() {
+        CardFactoryStub cardFactory = new CardFactoryStub();
+        cardFactory.givenCard(createCard(1, "1스페이스"));
+        cardFactory.givenCard(createCard(10, "10스페이드"));
+        cardFactory.givenCard(createCard(10, "10하트"));
+        cardFactory.givenCard(createCard(1, "1하트"));
+        cardFactory.givenCard(createCard(1, "1스페이스"));
+        cardFactory.givenCard(createCard(10, "10스페이드"));
+        Player pobi = Player.of("pobi", 1000);
+        BlackJackGame game = BlackJackGame.of(Arrays.asList(pobi), cardFactory);
+        game.dealAllPlayer();
+        game.dealAllPlayer();
+        game.dealAllPlayer();
+
+        List<Player> result = game.getBlackJackPlayer();
+
+        assertThat(result.size()).isEqualTo(1);
+        assertThat(result)
+                .extracting("name")
+                .containsExactly("pobi");
+    }
+
     private Card createCard(final int point, final String fullName) {
         return new Card() {
 

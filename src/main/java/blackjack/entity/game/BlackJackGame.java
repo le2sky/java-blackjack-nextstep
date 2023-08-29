@@ -4,6 +4,7 @@ import blackjack.entity.card.CardFactory;
 import blackjack.entity.player.Player;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class BlackJackGame {
 
@@ -65,6 +66,12 @@ public class BlackJackGame {
                 .map(Player::hasBlackJack)
                 .findFirst()
                 .orElse(false);
+    }
+
+    public List<Player> getBlackJackPlayer() {
+        return players.stream()
+                .filter(Player::hasBlackJack)
+                .collect(Collectors.toList());
     }
 
     public Player getDealer() {
