@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import blackjack.entity.card.Card;
+import blackjack.entity.common.Money;
 import blackjack.entity.common.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -91,6 +92,41 @@ class PlayerTest {
         String result = player.showCard();
 
         assertThat(result).isEqualTo("5스페이드, 5스페이드");
+    }
+
+    @DisplayName("다른 사용자에게 돈을 전송한다.")
+    @Test
+    void transfer() {
+        Player player = Player.of("lee", 1000);
+        Player other = Player.of("kim", 10000);
+
+        player.transfer(other, Money.from(1000));
+
+        assertThat(player.getMoney()).isEqualTo(0);
+        assertThat(player.getRevenue()).isEqualTo(-1000);
+        assertThat(other.getMoney()).isEqualTo(11000);
+        assertThat(other.getRevenue()).isEqualTo(1000);
+    }
+
+    @DisplayName("알 수 없는 사용자(null)에게 돈을 전송할 수 없다.")
+    @Test
+    void checkIsTransferPlayerNonNull() {
+        Player player = Player.of("lee", 1000);
+
+        assertThatThrownBy(() -> player.transfer(null, Money.from(100)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 사용자에게 돈을 전송할 수 없습니다.");
+    }
+
+    @DisplayName("알 수 없는 금액(null)을 전송할 수 없다.")
+    @Test
+    void checkIsMoneyNonNull() {
+        Player player = Player.of("lee", 1000);
+        Player other = Player.of("kim", 10000);
+
+        assertThatThrownBy(() -> player.transfer(other, null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("알 수 없는 금액입니다.");
     }
 
     private Card createCard() {

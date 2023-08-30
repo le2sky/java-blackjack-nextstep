@@ -4,6 +4,7 @@ import blackjack.entity.card.Card;
 import blackjack.entity.common.Money;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Player {
@@ -14,6 +15,7 @@ public class Player {
     private static final String INVALID_DEAL_STATE_MESSAGE =
             "스탠드나 버스트 상태에서는 신규 카드를 받을 수 없습니다.";
     private static final String SHOW_CARD_JOIN_DELIMITER = ", ";
+    private static final String INVALID_TRANSFER_TARGET = "알 수 없는 사용자에게 돈을 전송할 수 없습니다.";
 
     private final Name name;
     private final Deck deck;
@@ -75,8 +77,32 @@ public class Player {
         return deck.isBlackJack();
     }
 
+    public void transfer(final Player to, final Money money) {
+        checkIsTransferPlayerNonNull(to);
+
+        to.earnMoney(money);
+        state.lossMoney(money);
+    }
+
+    private static void checkIsTransferPlayerNonNull(final Player to) {
+        Optional.ofNullable(to)
+                .orElseThrow(() -> new IllegalArgumentException(INVALID_TRANSFER_TARGET));
+    }
+
+    private void earnMoney(final Money money) {
+        state.earnMoney(money);
+    }
+
     public String getName() {
         return name.getValue();
+    }
+
+    public double getMoney() {
+        return state.getMoney();
+    }
+
+    public double getRevenue() {
+        return state.getRevenue().getAmount();
     }
 
     @Override
