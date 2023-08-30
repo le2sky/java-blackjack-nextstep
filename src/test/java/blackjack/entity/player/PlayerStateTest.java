@@ -39,7 +39,7 @@ class PlayerStateTest {
     @Test
     void bust() {
         PlayerState playerState = PlayerState.from(Money.from(10000));
-        PlayerState expected = PlayerState.of(Money.from(0), PlayerStatus.BUST);
+        PlayerState expected = PlayerState.of(Money.from(-10000), PlayerStatus.BUST);
 
         playerState.bust();
 

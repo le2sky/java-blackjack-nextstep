@@ -43,7 +43,7 @@ class PlayerState {
     }
 
     public void bust() {
-        money = money.minus(money);
+        money = money.minus(money.multiply(2));
         status = PlayerStatus.BUST;
     }
 
